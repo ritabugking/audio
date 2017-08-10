@@ -1,0 +1,16 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Aug  9 20:41:57 2017
+
+@author: yijuwang
+"""
+
+
+import scipy
+
+for i in range(0, len(segments)):
+    s=segments[i][0]*Fs
+    e=segments[i][1]*Fs
+    sound=x[int(s):int(e)]
+    scipy.io.wavfile.write("song{0}.wav".format(i), Fs, sound)
