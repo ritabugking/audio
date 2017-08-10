@@ -8,9 +8,54 @@ Created on Wed Aug  9 20:41:57 2017
 
 
 import scipy
+import matplotlib.pyplot as plt
+import numpy as np
 
 for i in range(0, len(segments)):
     s=segments[i][0]*Fs
     e=segments[i][1]*Fs
     sound=x[int(s):int(e)]
     scipy.io.wavfile.write("song{0}.wav".format(i), Fs, sound)
+
+#==============================================================================
+# #from pylab import *
+# plt.specgram(sound, Fs=Fs)
+# #scipy.signal.spectrogram(sound, Fs)
+# 
+# #Pxx, freqs, bins, im = plt.specgram(sound, Fs=Fs, noverlap=900)
+# #plt.show()
+# 
+# #dt = 2e-9
+# #t = np.arange(0, 10e-6, dt)
+# sound_ = sound
+# sound_ *= float(np.hanning(len(sound_)))
+# sound2 = np.concatenate((sound_, ([0] * 10 * len(sound_))))
+# # FFT of this
+# 
+# n = len(sound2)  # length of the signal
+# k = np.arange(n)
+# T = n / Fs
+# frq = k / T  # two sides frequency range
+# frq = frq[range(n / 2)]  # one side frequency range
+# Y = fft(sound2) / n  # fft computing and normalization
+# Y = Y[range(n / 2)] / max(Y[range(n / 2)])
+# 
+# # plotting the data
+# #subplot(3, 1, 1)
+# #plot(t * 1e3, sound_, 'r')
+# #xlabel('Time (micro seconds)')
+# #ylabel('Amplitude')
+# #grid()
+# 
+# # plotting the spectrum
+# subplot(3, 1, 2)
+# plot(frq[0:600], abs(Y[0:600]), 'k')
+# xlabel('Freq (Hz)')
+# ylabel('|Y(freq)|')
+# grid()
+# 
+# # plotting the specgram
+# subplot(3, 1, 3)
+# Pxx, freqs, bins, im = specgram(sound_, NFFT=512, Fs=Fs, noverlap=10)
+# show()
+#==============================================================================
