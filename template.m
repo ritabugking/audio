@@ -24,13 +24,15 @@ for i=1:size(Y,2)
     %peak=find(abs(Y(n2,i))==max(abs(Y(n2,i))));
     peak=find(abs(Y(n2,i))==max(abs(Y(n2,i))));
     for j=n2
-        if (j~=peak && j~=peak+1 && j~=peak-1 && j~=peak+2 && j~=peak-2 && j~=peak+3 && j~=peak-3 && j~=peak+4 && j~=peak-4 && j~=peak+5 && j~=peak-5 && j~=peak+6 && j~=peak-6 && j~=peak+7 && j~=peak-7 && j~=peak+8 && j~=peak-8 && j~=peak+9 && j~=peak-9 && j~=peak+10 && j~=peak-10 && j~=peak+11 && j~=peak-11 && j~=peak+12 && j~=peak-12 && j~=peak+13 && j~=peak-13 && j~=peak+14 && j~=peak-14)
-                Y(j,i)=0;
-        end
-        if (j==peak+1 || j==peak-1 || j==peak+2 || j==peak-2 || j==peak+3 || j==peak-3 || j==peak+4 || j==peak-4 || j==peak+5 || j==peak-5 || j==peak+6 || j==peak-6 || j==peak+7 || j==peak-7 || j==peak+8 || j==peak-8 || j==peak+9 || j==peak-9 || j==peak+10 || j==peak-10 || j==peak+11 || j==peak-11 || j==peak+12 || j==peak-12 || j==peak+13 || j==peak-13 || j==peak+14 || j==peak-14)
+        for k=1:14
+            if (j==peak)
+            elseif(j==peak+k || j==peak-k)
                 if (abs(Y(j,i))<max(max(abs(Y)))*0.1) %%% maximal value of whole spectrogram 
                     Y(j,i) = 0;
                 end
+            else
+                Y(j,i)=0;
+            end
         end
     end
 end
