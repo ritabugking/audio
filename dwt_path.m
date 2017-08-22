@@ -16,7 +16,7 @@ if (a==0 || b==0)
 end
 
 
-filename = sprintf('/Users/yijuwang/Desktop/spto/yw/yw1t2longer.wav');
+filename = sprintf('/Users/yijuwang/Desktop/spto/yw/yw1t1longer_h.wav');
 [x, Fs]=audioread(filename);
 %[x, Fs]=audioread(filename, [1,44100*1+1]);
 x=x(:,1); % one channel
@@ -92,27 +92,41 @@ for i=1:ns
         D(i+2,j+2)=oost(i+1,j+1)+max([D(i,j+1)+oost(i,j+1), D(i+1,j)+oost(i+1,j), D(i+1,j+1)]);
     end
 end
-similarity=max(D(:,nt+2)/(nt+2+ns+2)); % the biggest num at last column
-loc=find(D/(nt+2+ns+2)==max(D(:,nt+2)/(nt+2+ns+2)));
-location_x = mod(loc,size(D,1));
-location_y = floor(loc/size(D,1))+1;
-if (location_x==0)
-    location_x=size(D,1);
-    location_y = location_y-1;
-end
-d_len=nt+2;
 
-while(max(D(:,d_len))==-Inf) % the biggest num isn't at last column
-    d_len=d_len-1;
-    similarity=max(D(:,d_len))/ns+2+d_len;
+n_max=max(D(:,1:size(D,2))); % ????????????????
+big=-Inf;
+loc=-Inf;
+for i=3:size(D,2)
+    if (big<n_max(i)/(i+size(D,1)))
+        big=n_max(i)/(i+size(D,1));
+        loc=i;
+    end
 end
-loc=find(D/(ns+2+d_len)==max(D(:,d_len)/(ns+2+d_len)));
-location_x = mod(loc,size(D,1));
-location_y = floor(loc/size(D,1))+1;
-if (location_x==0)
-    location_x=size(D,1);
-    location_y = location_y-1;
-end
+
+similarity = big;
+%similarity=max(D(:,nt+2)/(nt+2+ns+2)); % the biggest num at last column
+%loc=find(D/(nt+2+ns+2)==max(D(:,nt+2)/(nt+2+ns+2)));
+%location_x = mod(loc,size(D,1));
+%location_y = floor(loc/size(D,1))+1;
+location_x = size(D,1);
+location_y = loc;
+%if (location_x==0)
+%    location_x=size(D,1);
+%    location_y = location_y-1;
+%end
+% d_len=nt+2;
+% 
+% while(max(D(:,d_len))==-Inf) % the biggest num isn't at last column
+%     d_len=d_len-1;
+%     similarity=max(D(:,d_len))/ns+2+d_len;
+% end
+% loc=find(D/(ns+2+d_len)==max(D(:,d_len)/(ns+2+d_len)));
+% location_x = mod(loc,size(D,1));
+% location_y = floor(loc/size(D,1))+1;
+% if (location_x==0)
+%     location_x=size(D,1);
+%     location_y = location_y-1;
+% end
 
 if (max([D(a,b+1)+oost(a,b+1), D(a+1,b)+oost(a+1,b), D(a+1,b+1)])==D(a,b+1)+oost(a,b+1))
 %     fprintf('(%d, %d)', a, b);
